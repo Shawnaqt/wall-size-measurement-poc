@@ -1,0 +1,59 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# 環境変数
+.env
+.env.local
+
+# ログファイル
+*.log
+
+# 一時ファイル
+*.tmp
+*.temp
+demo.zip
+
+# テスト用画像（必要に応じてコメントアウト）
+# *.jpg
+# *.jpeg
+# *.png
+# *.gif
+
+# OS
+Thumbs.db
+.DS_Store
+

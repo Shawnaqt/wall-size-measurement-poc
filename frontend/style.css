@@ -1,0 +1,434 @@
+/* リセットとベーススタイル */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-size: 2em;
+}
+
+.subtitle {
+    color: #7f8c8d;
+    margin-bottom: 30px;
+    font-size: 0.95em;
+}
+
+h2 {
+    color: #34495e;
+    margin-bottom: 15px;
+    font-size: 1.3em;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 5px;
+}
+
+.section {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #fafafa;
+    border-radius: 5px;
+    border: 1px solid #e0e0e0;
+}
+
+/* ファイル入力エリア */
+.file-input-area {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+#imageFileInput {
+    display: none;
+}
+
+.file-label {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.file-label:hover {
+    background-color: #2980b9;
+}
+
+/* ボタンスタイル */
+.btn-primary {
+    padding: 12px 24px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background-color: #2980b9;
+}
+
+.btn-primary:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+}
+
+.btn-secondary {
+    padding: 12px 24px;
+    background-color: #95a5a6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background-color: #7f8c8d;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+/* Canvasコンテナ */
+.canvas-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ecf0f1;
+    padding: 20px;
+    border-radius: 5px;
+    border: 2px dashed #bdc3c7;
+    min-height: 300px;
+}
+
+#mainCanvas {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #bdc3c7;
+    background-color: white;
+    cursor: crosshair;
+}
+
+/* ステータスメッセージ */
+.status-message {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+.status-message.info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+.status-message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.status-message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+/* 確認メッセージ */
+.confirm-message {
+    font-size: 1.1em;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    padding: 15px;
+    background-color: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 5px;
+}
+
+/* フォームグループ */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: inline-block;
+    width: 150px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.form-group input[type="number"] {
+    padding: 8px 12px;
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+    font-size: 1em;
+    width: 200px;
+}
+
+.type-display {
+    display: inline-block;
+    padding: 5px 15px;
+    background-color: #3498db;
+    color: white;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.instruction {
+    color: #555;
+    margin-bottom: 15px;
+    font-size: 0.95em;
+}
+
+/* 結果表示エリア */
+.result-box {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    border: 2px solid #3498db;
+}
+
+.result-item {
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+.result-label {
+    font-weight: bold;
+    color: #2c3e50;
+    margin-right: 10px;
+}
+
+.result-value {
+    color: #e74c3c;
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-right: 5px;
+}
+
+.result-unit {
+    color: #7f8c8d;
+    font-size: 0.9em;
+}
+
+/* 接続状態表示 */
+.connection-status-section {
+    background-color: #f8f9fa;
+    border: 2px solid #dee2e6;
+}
+
+.connection-status {
+    padding: 15px;
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.status-icon {
+    font-size: 1.5em;
+    transition: color 0.3s;
+}
+
+.status-icon.connected {
+    color: #28a745;
+    animation: pulse 2s infinite;
+}
+
+.status-icon.disconnected {
+    color: #dc3545;
+}
+
+.status-icon.checking {
+    color: #ffc107;
+    animation: blink 1s infinite;
+}
+
+.status-text {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.status-text.connected {
+    color: #28a745;
+}
+
+.status-text.disconnected {
+    color: #dc3545;
+}
+
+.status-text.checking {
+    color: #ffc107;
+}
+
+.connection-info {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: white;
+    border-radius: 4px;
+    font-size: 0.9em;
+    color: #6c757d;
+}
+
+.connection-info.connected {
+    border-left: 4px solid #28a745;
+}
+
+.connection-info.disconnected {
+    border-left: 4px solid #dc3545;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.3;
+    }
+}
+
+/* カメラモーダル */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    overflow: auto;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 0;
+    border: 1px solid #888;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 800px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #dee2e6;
+    background-color: #f8f9fa;
+    border-radius: 8px 8px 0 0;
+}
+
+.modal-header h2 {
+    margin: 0;
+    border: none;
+    padding: 0;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 2em;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: #000;
+    background-color: #e9ecef;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.camera-preview {
+    width: 100%;
+    max-width: 100%;
+    background-color: #000;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    position: relative;
+    aspect-ratio: 4 / 3;
+}
+
+#cameraVideo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.camera-error {
+    padding: 15px;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.camera-controls {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.camera-controls button {
+    min-width: 120px;
+}
+

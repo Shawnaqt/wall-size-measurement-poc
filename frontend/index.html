@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>寸法測定PoC - 門柱画像解析</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>寸法測定PoC</h1>
+        <p class="subtitle">門柱画像から基準物を検出し、貼り付け位置の実寸を測定します</p>
+
+        <!-- 接続状態表示エリア -->
+        <section class="section connection-status-section">
+            <h2>接続状態</h2>
+            <div id="connectionStatus" class="connection-status">
+                <div class="status-indicator">
+                    <span id="statusIcon" class="status-icon">●</span>
+                    <span id="statusText" class="status-text">接続確認中...</span>
+                </div>
+                <div id="connectionInfo" class="connection-info"></div>
+                <button id="testConnectionBtn" class="btn-secondary" style="margin-top: 10px;">接続をテスト</button>
+            </div>
+        </section>
+
+        <!-- 1. 画像選択エリア -->
+        <section class="section">
+            <h2>1. 画像の選択</h2>
+            <div class="file-input-area">
+                <input type="file" id="imageFileInput" accept="image/*">
+                <label for="imageFileInput" class="file-label">画像ファイルを選択</label>
+                <button id="cameraBtn" class="btn-secondary">カメラから撮影</button>
+            </div>
+        </section>
+
+        <!-- カメラ撮影モーダル -->
+        <div id="cameraModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>カメラから撮影</h2>
+                    <button id="closeCameraBtn" class="close-btn">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div id="cameraPreview" class="camera-preview">
+                        <video id="cameraVideo" autoplay playsinline></video>
+                        <canvas id="cameraCanvas" style="display: none;"></canvas>
+                    </div>
+                    <div id="cameraError" class="camera-error" style="display: none;"></div>
+                    <div class="camera-controls">
+                        <button id="captureBtn" class="btn-primary">撮影</button>
+                        <button id="cancelCameraBtn" class="btn-secondary">キャンセル</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. 基準物解析ボタン -->
+        <section class="section">
+            <h2>2. 基準物の解析</h2>
+            <button id="analyzeBtn" class="btn-primary" disabled>基準物を解析する</button>
+            <div id="analyzeStatus" class="status-message"></div>
+        </section>
+
+        <!-- 3. Canvasエリア -->
+        <section class="section">
+            <h2>3. 画像表示</h2>
+            <div class="canvas-container">
+                <canvas id="mainCanvas"></canvas>
+            </div>
+        </section>
+
+        <!-- 4. 基準物の確認UI -->
+        <section class="section" id="confirmSection" style="display: none;">
+            <h2>4. 基準物の確認</h2>
+            <p id="confirmMessage" class="confirm-message"></p>
+            <div class="button-group">
+                <button id="confirmYesBtn" class="btn-primary">はい（正しい）</button>
+                <button id="confirmNoBtn" class="btn-secondary">いいえ（枠を修正）</button>
+            </div>
+        </section>
+
+        <!-- 5. 基準物実寸の入力UI -->
+        <section class="section" id="referenceSizeSection" style="display: none;">
+            <h2>5. 基準物の実寸入力</h2>
+            <p class="instruction">基準物の実寸（mm）を入力してください</p>
+            <div class="form-group">
+                <label>基準物種別:</label>
+                <span id="referenceTypeDisplay" class="type-display"></span>
+            </div>
+            <div class="form-group">
+                <label for="referenceWidthInput">幅 (mm):</label>
+                <input type="number" id="referenceWidthInput" min="1" step="0.1">
+            </div>
+            <div class="form-group">
+                <label for="referenceHeightInput">高さ (mm):</label>
+                <input type="number" id="referenceHeightInput" min="1" step="0.1">
+            </div>
+            <button id="confirmSizeBtn" class="btn-primary">基準寸法を確定</button>
+        </section>
+
+        <!-- 6. 貼り付け位置指定モード -->
+        <section class="section" id="selectRectSection" style="display: none;">
+            <h2>6. 貼り付け位置の指定</h2>
+            <p class="instruction">画像の上でドラッグして貼り付け位置を指定してください</p>
+            <div id="rectStatus" class="status-message"></div>
+        </section>
+
+        <!-- 7. 結果表示エリア -->
+        <section class="section" id="resultSection" style="display: none;">
+            <h2>7. 測定結果</h2>
+            <div class="result-box">
+                <div class="result-item">
+                    <span class="result-label">幅:</span>
+                    <span id="resultWidth" class="result-value">-</span>
+                    <span class="result-unit">mm</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">高さ:</span>
+                    <span id="resultHeight" class="result-value">-</span>
+                    <span class="result-unit">mm</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">アスペクト比:</span>
+                    <span id="resultAspectRatio" class="result-value">-</span>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
+
