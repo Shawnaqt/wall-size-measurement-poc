@@ -9,8 +9,8 @@ from ultralytics  import YOLO
 import numpy as np
 
 
-YOLO_MODEL = YOLO("best.pt")
-classes = ["POST","INTERCOM"]
+YOLO_MODEL = YOLO("INTERCOM ai.pt")
+classes = ["INTERCOM"]
 
 def yolo_detect_reference_object(image: Image.Image) -> Optional[Dict[str, Any]]:
     """
@@ -30,23 +30,33 @@ def yolo_detect_reference_object(image: Image.Image) -> Optional[Dict[str, Any]]
         }
         または None
     """
-
     # Ensure 3-channel RGB
     image = image.convert("RGB")
-
+    
     # PIL → numpy
     img_np = np.array(image)
 
     # YOLO推論
     results = YOLO_MODEL.predict(img_np, verbose=False, conf=0.25)
 
+
     if len(results) == 0 or len(results[0].boxes) == 0:
         return None
 
     # 最も信頼度の高い1つを採用
-    box = results[0].boxes[0]
-    classType = classes[int(results[0].boxes.cls)]
+    if len(results[0].boxes) > 1:
+        hScore = 0
+        box = results[0].boxes[0]
+        for b in results[0].boxes:
+            if b.conf > hScore:
+                hScore = b.conf
+                box = b
+    else:
+        box = results[0].boxes[0]
+
+    classType = classes[int(box.cls)]
     # xyxy形式で取り出す
+
     x1, y1, x2, y2 = box.xyxy[0].tolist()
     conf = float(box.conf[0].item())
 
